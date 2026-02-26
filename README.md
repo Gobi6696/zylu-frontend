@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # zylu
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# zylu-frontend
+>>>>>>> 0c09099de8333206977fcf3a59b06b76d2555426
