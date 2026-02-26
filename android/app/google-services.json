@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "134675558444",
+    "project_id": "zylu-56a8d",
+    "storage_bucket": "zylu-56a8d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134675558444:android:79624f0647c6eeccec6189",
+        "android_client_info": {
+          "package_name": "com.gobi.zylu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134675558444-b73980or2cn96kqukbc2jp0hsgr4nnu1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gobi.zylu",
+            "certificate_hash": "6a9732838e7664da6eb2c1d1710c60ff712e4397"
+          }
+        },
+        {
+          "client_id": "134675558444-dggofh8qrg7utf12j2nol7eqgp4bgp9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTa-uQdLU6QR8Mt_S1Wvyy7A2os5hwiqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134675558444-dggofh8qrg7utf12j2nol7eqgp4bgp9h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
