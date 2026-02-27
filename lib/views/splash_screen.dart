@@ -20,12 +20,17 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateAfterDelay() async {
-    // Show splash for at least 3 seconds
-    await Future.delayed(const Duration(seconds: 3));
-
-    if (!mounted) return;
+    final splashDelay = Future.delayed(const Duration(seconds: 3));
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    while (authProvider.isLoading) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+
+    await splashDelay;
+
+    if (!mounted) return;
 
     if (authProvider.isAuthenticated) {
       Navigator.pushReplacement(
@@ -43,25 +48,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF6750A4),
+      backgroundColor: Colors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // You can replace with your logo
-            const Icon(
-              Icons.people_alt_rounded,
-              size: 100,
-              color: Colors.white,
-            ),
-            const SizedBox(height: 40),
-            const Text(
-              'ZYLU',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            // Official Logo
+            Image.asset(
+              'assets/logo/Logozylu.png',
+              width: 200,
+              fit: BoxFit.contain,
             ),
             const SizedBox(height: 60),
             const _ThreeDotLoading(),

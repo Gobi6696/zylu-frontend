@@ -7,10 +7,8 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Get current user stream
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-  // Current user
   User? get currentUser => _auth.currentUser;
 
   Future<AppUser?> getCurrentAppUser() async {
@@ -24,7 +22,6 @@ class AuthService {
     return null;
   }
 
-  // Email Sign Up
   Future<String?> signUpWithEmail({
     required String name,
     required String email,
@@ -56,7 +53,6 @@ class AuthService {
     }
   }
 
-  // Email Sign In
   Future<String?> signInWithEmail({
     required String email,
     required String password,
@@ -74,42 +70,6 @@ class AuthService {
     }
   }
 
-  // Google Sign In
-  // Future<String?> signInWithGoogle() async {
-  //   try {
-  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //     if (googleUser == null) return 'Google sign in cancelled';
-  //
-  //     final GoogleSignInAuthentication googleAuth =
-  //         await googleUser.authentication;
-  //
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth.accessToken,
-  //       idToken: googleAuth.idToken,
-  //     );
-  //
-  //     final userCredential = await _auth.signInWithCredential(credential);
-  //     final user = userCredential.user;
-  //
-  //     if (user == null) return 'Google sign in failed';
-  //
-  //     // Check if new user → create document
-  //     final doc = await _firestore.collection('users').doc(user.uid).get();
-  //     if (!doc.exists) {
-  //       final appUser = AppUser(
-  //         uid: user.uid,
-  //         email: user.email,
-  //         name: user.displayName ?? 'Google User',
-  //         createdAt: DateTime.now(),
-  //       );
-  //       await _firestore.collection('users').doc(user.uid).set(appUser.toMap());
-  //     }
-  //
-  //     return null;
-  //   } catch (e) {
-  //     return e.toString();
-  //   }
-  // }
   Future<String?> signInWithGoogle() async {
     try {
       final GoogleAuthProvider googleProvider = GoogleAuthProvider();

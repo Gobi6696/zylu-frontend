@@ -4,16 +4,6 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -63,8 +53,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '134675558444',
     projectId: 'zylu-56a8d',
     storageBucket: 'zylu-56a8d.firebasestorage.app',
-    androidClientId: '134675558444-b73980or2cn96kqukbc2jp0hsgr4nnu1.apps.googleusercontent.com',
-    iosClientId: '134675558444-tusd8pl644hknei01t6ksjibluiv16bi.apps.googleusercontent.com',
+    androidClientId:
+        '134675558444-b73980or2cn96kqukbc2jp0hsgr4nnu1.apps.googleusercontent.com',
+    iosClientId:
+        '134675558444-tusd8pl644hknei01t6ksjibluiv16bi.apps.googleusercontent.com',
     iosBundleId: 'com.gobi.zylu',
   );
 
@@ -74,8 +66,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '134675558444',
     projectId: 'zylu-56a8d',
     storageBucket: 'zylu-56a8d.firebasestorage.app',
-    androidClientId: '134675558444-b73980or2cn96kqukbc2jp0hsgr4nnu1.apps.googleusercontent.com',
-    iosClientId: '134675558444-tusd8pl644hknei01t6ksjibluiv16bi.apps.googleusercontent.com',
+    androidClientId:
+        '134675558444-b73980or2cn96kqukbc2jp0hsgr4nnu1.apps.googleusercontent.com',
+    iosClientId:
+        '134675558444-tusd8pl644hknei01t6ksjibluiv16bi.apps.googleusercontent.com',
     iosBundleId: 'com.gobi.zylu',
   );
 

@@ -1,7 +1,7 @@
 class Employee {
   final int id;
   final String name;
-  final String joinDate; // Format: YYYY-MM-DD
+  final String joinDate;
   final bool isActive;
 
   Employee({

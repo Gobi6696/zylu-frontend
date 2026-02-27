@@ -3,9 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/employee.dart';
 
 class EmployeeService {
-  // Adjust this URL based on where your backend is hosted
-  // Updated to point to your XAMPP Laravel installation
-  static const String baseUrl = 'http://192.168.68.134/employee-api/public';
+  static const String baseUrl = 'http://192.168.68.122/employee-api/public';
 
   Future<List<Employee>> fetchEmployees() async {
     try {
@@ -18,7 +16,6 @@ class EmployeeService {
         throw Exception('Failed to load employees');
       }
     } catch (e) {
-      // Return mock data if backend isn't running, for demonstration
       return _getMockEmployees();
     }
   }
@@ -41,13 +38,8 @@ class EmployeeService {
 
   List<Employee> _getMockEmployees() {
     return [
-      Employee(id: 1, name: 'John Doe', joinDate: '2015-05-10', isActive: true),
-      Employee(
-        id: 2,
-        name: 'Jane Smith',
-        joinDate: '2019-03-20',
-        isActive: true,
-      ),
+      Employee(id: 1, name: 'Gobinath', joinDate: '2015-05-10', isActive: true),
+      Employee(id: 2, name: 'Lisa', joinDate: '2019-09-11', isActive: true),
       Employee(
         id: 3,
         name: 'Robert Brown',
@@ -72,6 +64,11 @@ class EmployeeService {
         joinDate: '2014-06-25',
         isActive: false,
       ),
+      Employee(id: 7, name: 'Arun', joinDate: '2018-07-05', isActive: true),
+      Employee(id: 8, name: 'Vinoth', joinDate: '2024-04-27', isActive: false),
+      Employee(id: 9, name: 'Prasanth', joinDate: '2016-02-22', isActive: true),
+      Employee(id: 10, name: 'Karthi', joinDate: '2017-08-11', isActive: false),
+      Employee(id: 11, name: 'Ajith', joinDate: '2021-01-14', isActive: true),
     ];
   }
 }

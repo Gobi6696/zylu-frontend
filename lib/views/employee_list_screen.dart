@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/employee.dart';
 import '../controllers/employee_controller.dart';
+import 'employee_detail_screen.dart';
+import 'profile_screen.dart';
 
 class EmployeeListScreen extends StatefulWidget {
   const EmployeeListScreen({super.key});
@@ -12,6 +14,21 @@ class EmployeeListScreen extends StatefulWidget {
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   final EmployeeController _controller = EmployeeController();
   late Future<List<Employee>> _employeeFuture;
+
+  final List<Color> _avatarColors = [
+    Colors.purpleAccent,
+    Colors.blueAccent,
+    Colors.tealAccent,
+    Colors.pinkAccent,
+    Colors.orangeAccent,
+    Colors.indigoAccent,
+    Colors.cyanAccent,
+    Colors.deepOrangeAccent,
+  ];
+
+  Color _getAvatarColor(int id) {
+    return _avatarColors[id.abs() % _avatarColors.length];
+  }
 
   @override
   void initState() {
@@ -36,48 +53,100 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
+          backgroundColor: const Color(0xFF1E1E1E),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            side: const BorderSide(color: Colors.white24, width: 1),
+            borderRadius: BorderRadius.circular(24),
           ),
           title: const Row(
             children: [
-              Icon(Icons.person_add, color: Color(0xFF6750A4)),
-              SizedBox(width: 10),
-              Text('Add Employee'),
+              Icon(Icons.person_add_rounded, color: Colors.white, size: 28),
+              SizedBox(width: 12),
+              Text(
+                'Add Employee',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
             ],
           ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                const SizedBox(height: 8),
                 TextField(
                   controller: nameController,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Full Name',
-                    prefixIcon: const Icon(Icons.person_outline),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: const Icon(
+                      Icons.person_outline,
+                      color: Colors.white70,
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Colors.white24),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Colors.white,
+                        width: 1.5,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 TextField(
                   controller: joinDateController,
-                  readOnly: true, // Prevents manual typing errors
+                  readOnly: true,
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: 'Join Date',
-                    prefixIcon: const Icon(Icons.calendar_today),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                    labelStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: const Icon(
+                      Icons.calendar_today,
+                      color: Colors.white70,
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: Colors.white24),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: Colors.white,
+                        width: 1.5,
+                      ),
+                    ),
+                    filled: true,
+                    fillColor: Colors.black,
                   ),
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(2000),
-                      lastDate:
-                          DateTime.now(), // Employees can't join in future
+                      lastDate: DateTime.now(),
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: const ColorScheme.dark(
+                              primary: Colors.white,
+                              onPrimary: Colors.black,
+                              surface: Color(0xFF1E1E1E),
+                              onSurface: Colors.white,
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
                     );
                     if (pickedDate != null) {
                       joinDateController.text = pickedDate.toString().split(
@@ -86,14 +155,19 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                     }
                   },
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: Colors.white24),
                   ),
                   child: SwitchListTile(
-                    title: const Text('Is Active'),
+                    title: const Text(
+                      'Is Active',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     value: isActive,
                     activeColor: Colors.green,
                     onChanged: (value) {
@@ -106,18 +180,27 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               ],
             ),
           ),
+          actionsPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF6750A4),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 0,
               ),
               onPressed: () async {
                 if (nameController.text.trim().isNotEmpty &&
@@ -154,7 +237,10 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                   );
                 }
               },
-              child: const Text('Add Employee'),
+              child: const Text(
+                'Add Employee',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
@@ -165,6 +251,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF121212), // Light black background
       appBar: AppBar(
         backgroundColor: Colors.black,
         leadingWidth: 80,
@@ -173,8 +260,12 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           child: Image.asset('assets/logo/Logozylu.png', fit: BoxFit.contain),
         ),
         title: const Text(
-          'Our Employees',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          'Employees List',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
         elevation: 0,
@@ -183,13 +274,28 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             onPressed: _refresh,
             icon: const Icon(Icons.refresh, color: Colors.white),
           ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
+            },
+            icon: const Icon(
+              Icons.account_circle,
+              color: Colors.white,
+              size: 28,
+            ),
+          ),
         ],
       ),
       body: FutureBuilder<List<Employee>>(
         future: _employeeFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            );
           } else if (snapshot.hasError) {
             return Center(
               child: Column(
@@ -217,104 +323,112 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               final employee = employees[index];
               final isHighlighted = employee.shouldHighlight;
 
-              return Card(
-                elevation: isHighlighted ? 4 : 1,
-                margin: const EdgeInsets.only(bottom: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  side: isHighlighted
-                      ? const BorderSide(color: Colors.green, width: 2)
-                      : BorderSide(color: Colors.grey.shade300, width: 1),
-                ),
-                color: isHighlighted
-                    ? Colors.white
-                    : Theme.of(context).cardColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 28,
-                        backgroundColor: isHighlighted
-                            ? Colors.green.withAlpha(100)
-                            : Theme.of(context).colorScheme.primaryContainer,
-                        child: Text(
-                          employee.name.isNotEmpty
-                              ? employee.name[0].toUpperCase()
-                              : "",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: isHighlighted
-                                ? Colors.green[900]
-                                : Theme.of(context).colorScheme.primary,
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          EmployeeDetailScreen(employee: employee),
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(16),
+                child: Card(
+                  elevation: 2,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Colors.white, width: 1),
+                  ),
+                  color: const Color(0xFF1E1E1E),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 28,
+                          backgroundColor: _getAvatarColor(employee.id),
+                          child: Text(
+                            employee.name.isNotEmpty
+                                ? employee.name[0].toUpperCase()
+                                : "",
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              employee.name.isNotEmpty
-                                  ? employee.name[0].toUpperCase() +
-                                        employee.name.substring(1)
-                                  : "",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Joined: ${employee.joinDate.split('T')[0]}',
-                              style: TextStyle(
-                                color: Theme.of(
-                                  context,
-                                ).textTheme.bodySmall?.color,
-                              ),
-                            ),
-                            Text(
-                              'Status: ${employee.isActive ? 'Active' : 'Inactive'}',
-                              style: TextStyle(
-                                color: employee.isActive
-                                    ? Colors.blue
-                                    : Colors.grey,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      if (isHighlighted)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: Colors.green, width: 1.5),
-                          ),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Icon(Icons.flag, color: Colors.green, size: 16),
-                              SizedBox(width: 4),
                               Text(
-                                '5+ Years',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 12,
+                                employee.name.isNotEmpty
+                                    ? employee.name[0].toUpperCase() +
+                                          employee.name.substring(1)
+                                    : "",
+                                style: const TextStyle(
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Joined: ${employee.joinDate.split('T')[0]}',
+                                style: TextStyle(color: Colors.grey[400]),
+                              ),
+                              Text(
+                                'Status: ${employee.isActive ? 'Active' : 'Inactive'}',
+                                style: TextStyle(
+                                  color: employee.isActive
+                                      ? Colors.greenAccent
+                                      : Colors.grey,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                    ],
+                        if (isHighlighted)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.green.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Colors.greenAccent.withOpacity(0.5),
+                                width: 1,
+                              ),
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.flag,
+                                  color: Colors.greenAccent,
+                                  size: 14,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  '5+ Years',
+                                  style: TextStyle(
+                                    color: Colors.greenAccent,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               );
