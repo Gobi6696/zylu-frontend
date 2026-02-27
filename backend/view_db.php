@@ -1,9 +1,9 @@
 <?php
-// Database connection
+
 $dbFile = __DIR__ . '/employees.db';
 $db = new PDO("sqlite:$dbFile");
 
-// Fetch data
+
 $stmt = $db->query("SELECT * FROM employees");
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
