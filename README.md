@@ -88,9 +88,9 @@ This application requires both the Laravel backend and the Flutter frontend to b
 
 *(Add your high-quality screenshots here to immediately grab attention)*
 
-| Employee List Dashboard | Real-time Search & Filter | Secure Profile & Logout |
-| :---: | :---: | :---: |
-| <img src="screenshots/list.png" width="230" alt="List Screen" /> | <img src="screenshots/filter.png" width="230" alt="Filter Screen" /> | <img src="screenshots/profile.png" width="230" alt="Profile Screen" /> |
+|                        Employee List Dashboard                        | Real-time Search & Filter | Secure Profile & Logout |
+|:---------------------------------------------------------------------:| :---: | :---: |
+| <img src="assets/logo/logo_zylu.png" width="230" alt="List Screen" /> | <img src="screenshots/filter.png" width="230" alt="Filter Screen" /> | <img src="screenshots/profile.png" width="230" alt="Profile Screen" /> |
 
 ---
 
