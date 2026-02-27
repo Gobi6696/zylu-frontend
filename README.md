@@ -1,6 +1,6 @@
 <div align="center">
   <img src="assets/logo/Logozylu.png" alt="Zylu Logo" width="120" />
-  <h1>Zylu - Premium Employee Management System</h1>
+  <h1>Premium Employee Management System</h1>
 
   <p>
     <strong>A high-performance, full-stack application demonstrating modern UI/UX principles, robust architecture, and seamless API integration.</strong>
